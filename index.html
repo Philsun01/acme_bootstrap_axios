@@ -14,14 +14,23 @@
 
       li {
         margin: 0 40px;
-        width: 10%;
+        width: 15%;
         text-overflow: ellipsis;
         font-size: 1.2rem;
         padding: 0.3rem;
       }
-
+      .companiesLink,
+      .productsLink {
+        width: 100%;
+      }
+      .nav-item {
+        width: 20%;
+      }
       ul:nth-child(odd) {
         background-color: #cccccc;
+      }
+      .title {
+        text-transform: uppercase;
       }
     </style>
   </head>
@@ -79,7 +88,7 @@
         let htmlHeaders =
           '<ul class = "list-inline">' +
           keyHeaders.reduce((text, currentElement) => {
-            return (text += `<li class = 'list-inline-item'>${currentElement} </li>`);
+            return (text += `<li class = 'title list-inline-item' >${currentElement} </li>`);
           }, "") +
           "</ul>";
 
