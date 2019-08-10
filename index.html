@@ -1,38 +1,56 @@
 <html>
   <head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.js"></script>
+    <link
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
+    <style>
+      * {
+        font-family: Verdana, Geneva, Tahoma, sans-serif;
+      }
 
-    <script src='https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.js'></script>
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+      li {
+        margin: 0 40px;
+        width: 10%;
+        text-overflow: ellipsis;
+        font-size: 1.2rem;
+        padding: 0.3rem;
+      }
 
+      ul:nth-child(odd) {
+        background-color: #cccccc;
+      }
+    </style>
   </head>
 
   <body>
-    <div class = 'container'>
+    <div class="container">
       <h1>Acme w/ Bootstrap and Axios VJS</h1>
-      <ul class = 'nav nav-tabs'>
-        <li class = 'nav-item'>
-          <a class = 'nav-link' id = 'companiesLink' href = '#companies'>
+      <ul class="nav nav-tabs">
+        <li class="nav-item">
+          <a class="nav-link" id="companiesLink" href="#companies">
             Companies
           </a>
         </li>
-        <li class = 'nav-item'>
-          <a class = 'nav-link' id = 'productsLink' href = '#products'>
+        <li class="nav-item">
+          <a class="nav-link" id="productsLink" href="#products">
             Products
           </a>
-        </li>      </ul>
+        </li>
+      </ul>
     </div>
 
-    <div id='results'>
-
-    </div>
-
-
+    <div id="results"></div>
 
     <script>
-
-      const loadData = async()=>{
-        const companiesLink ='https://acme-users-api-rev.herokuapp.com/api/companies';
-        const productsLink = 'https://acme-users-api-rev.herokuapp.com/api/products';
+      const loadData = async () => {
+        const companiesLink =
+          "https://acme-users-api-rev.herokuapp.com/api/companies";
+        const productsLink =
+          "https://acme-users-api-rev.herokuapp.com/api/products";
 
         const responseCompany = await axios.get(companiesLink);
         const companies = responseCompany.data;
@@ -42,37 +60,42 @@
 
         //console.log(companies);
         //console.log(products);
-        
-        render(companies)
 
-        window.addEventListener('hashchange', ev => {
+        render(companies);
+
+        window.addEventListener("hashchange", ev => {
           const currentPage = window.location.hash;
-          if (currentPage === '#companies') {
+          if (currentPage === "#companies") {
             render(companies);
-          } else if (currentPage === '#products') {
+          } else if (currentPage === "#products") {
             render(products);
           }
-        })
-      }
+        });
+      };
 
-      const render = (data) => {
+      const render = data => {
         const keyHeaders = Object.keys(data[0]);
 
-        let htmlHeaders = '<ul class = "list-inline">' + keyHeaders.reduce((text,currentElement)=>{
-          return text+= `<li class = 'list-inline-item'>${currentElement}</li>`
-        },'') + '</ul>';
+        let htmlHeaders =
+          '<ul class = "list-inline">' +
+          keyHeaders.reduce((text, currentElement) => {
+            return (text += `<li class = 'list-inline-item'>${currentElement}</li>`);
+          }, "") +
+          "</ul>";
 
-        const htmlText = data.reduce((text,currentObj) =>{
+        const htmlText = data.reduce((text, currentObj) => {
+          return (text +=
+            '<ul class = "list-inline" >' +
+            Object.values(currentObj)
+              .map(element => {
+                return `<li class = 'list-inline-item'> ${element} </li>`;
+              })
+              .join("") +
+            "</ul>");
+        }, "");
 
-          return text += '<ul class = "list-inline">' +  Object.values(currentObj).map((element)=>{
-            return `<li class = 'list-inline-item'> ${element} </li>`
-
-          }).join('') + '</ul>';
-
-        },'');
-
-        document.querySelector('#results').innerHTML = htmlHeaders + htmlText;
-      }
+        document.querySelector("#results").innerHTML = htmlHeaders + htmlText;
+      };
 
       loadData();
 
@@ -83,11 +106,6 @@
       // container
 
       // classes from Bootstrap
-
-
-
-
-
     </script>
   </body>
 </html>
