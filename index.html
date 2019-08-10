@@ -7,6 +7,14 @@
   </head>
 
   <body>
+    <div class = 'container'></div>
+
+    <div id='results'>
+
+    </div>
+
+
+
     <script>
 
       const loadData = async()=>{
@@ -19,15 +27,30 @@
         const responseProducts = await axios.get(productsLink);
         const products = responseProducts.data;
 
-
-        console.log(products);
-
-
+        //console.log(companies);
+        //console.log(products);
+        render(companies);
       }
-      console.log("Hello");
+
+      const render = (data) => {
+        const htmlText = data.map((company) =>{
+
+
+          /*
+          for(let[key,value] of Object.entries(company)){
+            console.log(`${key}:${value}`);
+            const tempHTML =''
+          }
+          */
+
+          return `<li>${company.name}</li>`
+        }).join('');
+
+        document.querySelector('#results').innerHTML = htmlText;
+      }
 
       loadData();
-      // fetch (axios.get())
+
       // render function
       // format data
 
