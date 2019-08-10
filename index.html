@@ -44,7 +44,7 @@
         //console.log(products);
         
         render(companies)
-        
+
         window.addEventListener('hashchange', ev => {
           const currentPage = window.location.hash;
           if (currentPage === '#companies') {
@@ -52,23 +52,20 @@
           } else if (currentPage === '#products') {
             render(products);
           }
-
         })
       }
 
       const render = (data) => {
         const keyHeaders = Object.keys(data[0]);
 
-        let htmlHeaders = '<div>' + keyHeaders.reduce((text,currentElement)=>{
-          return text+= `<li>${currentElement}</li>`
-        },'') + '</div>';
-
-
+        let htmlHeaders = '<ul class = "list-inline">' + keyHeaders.reduce((text,currentElement)=>{
+          return text+= `<li class = 'list-inline-item'>${currentElement}</li>`
+        },'') + '</ul>';
 
         const htmlText = data.reduce((text,currentObj) =>{
 
-          return text += '<ul>' +  Object.values(currentObj).map((element)=>{
-            return `<li> ${element} </li>`
+          return text += '<ul class = "list-inline">' +  Object.values(currentObj).map((element)=>{
+            return `<li class = 'list-inline-item'> ${element} </li>`
 
           }).join('') + '</ul>';
 
