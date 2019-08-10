@@ -30,23 +30,28 @@
         //console.log(companies);
         //console.log(products);
         render(companies);
+
       }
 
       const render = (data) => {
-        const htmlText = data.map((company) =>{
+        const keyHeaders = Object.keys(data[0]);
+
+        let htmlHeaders = '<div>' + keyHeaders.reduce((text,currentElement)=>{
+          return text+= `<li>${currentElement}</li>`
+        },'') + '</div>';
 
 
-          /*
-          for(let[key,value] of Object.entries(company)){
-            console.log(`${key}:${value}`);
-            const tempHTML =''
-          }
-          */
 
-          return `<li>${company.name}</li>`
-        }).join('');
+        const htmlText = data.reduce((text,currentObj) =>{
 
-        document.querySelector('#results').innerHTML = htmlText;
+          return text += '<ul>' +  Object.values(currentObj).map((element)=>{
+            return `<li> ${element} </li>`
+
+          }).join('') + '</ul>';
+
+        },'');
+
+        document.querySelector('#results').innerHTML = htmlHeaders + htmlText;
       }
 
       loadData();
