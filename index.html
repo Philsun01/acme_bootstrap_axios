@@ -1,3 +1,45 @@
 <html>
+  <head>
 
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.js'></script>
+    <!-- <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"> -->
+
+  </head>
+
+  <body>
+    <script>
+
+      const loadData = async()=>{
+        const companiesLink ='https://acme-users-api-rev.herokuapp.com/api/companies';
+        const productsLink = 'https://acme-users-api-rev.herokuapp.com/api/products';
+
+        const responseCompany = await axios.get(companiesLink);
+        const companies = responseCompany.data;
+
+        const responseProducts = await axios.get(productsLink);
+        const products = responseProducts.data;
+
+
+        console.log(products);
+
+
+      }
+      console.log("Hello");
+
+      loadData();
+      // fetch (axios.get())
+      // render function
+      // format data
+
+      // Navigation Link
+      // container
+
+      // classes from Bootstrap
+
+
+
+
+
+    </script>
+  </body>
 </html>
