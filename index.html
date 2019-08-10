@@ -57,29 +57,29 @@
 
         const responseProducts = await axios.get(productsLink);
         const products = responseProducts.data;
+        const proLength = products.length;
+        const compLength = companies.length;
 
-        //console.log(companies);
-        //console.log(products);
-
-        render(companies);
+        render(companies, compLength, proLength);
 
         window.addEventListener("hashchange", ev => {
           const currentPage = window.location.hash;
           if (currentPage === "#companies") {
-            render(companies);
+            render(companies, compLength, proLength);
           } else if (currentPage === "#products") {
-            render(products);
+            render(products, compLength, proLength);
           }
         });
       };
 
-      const render = data => {
+      const render = (data, cLen, pLen) => {
+        console.log(pLen, cLen);
         const keyHeaders = Object.keys(data[0]);
 
         let htmlHeaders =
           '<ul class = "list-inline">' +
           keyHeaders.reduce((text, currentElement) => {
-            return (text += `<li class = 'list-inline-item'>${currentElement}</li>`);
+            return (text += `<li class = 'list-inline-item'>${currentElement} </li>`);
           }, "") +
           "</ul>";
 
@@ -93,7 +93,12 @@
               .join("") +
             "</ul>");
         }, "");
-
+        document.querySelector(
+          "#companiesLink"
+        ).innerHTML = `Companies (${cLen})`;
+        document.querySelector(
+          "#productsLink"
+        ).innerHTML = `Products (${pLen})`;
         document.querySelector("#results").innerHTML = htmlHeaders + htmlText;
       };
 
