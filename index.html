@@ -2,12 +2,25 @@
   <head>
 
     <script src='https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.js'></script>
-    <!-- <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"> -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
   </head>
 
   <body>
-    <div class = 'container'></div>
+    <div class = 'container'>
+      <h1>Acme w/ Bootstrap and Axios VJS</h1>
+      <ul class = 'nav nav-tabs'>
+        <li class = 'nav-item'>
+          <a class = 'nav-link' id = 'companiesLink' href = '#companies'>
+            Companies
+          </a>
+        </li>
+        <li class = 'nav-item'>
+          <a class = 'nav-link' id = 'productsLink' href = '#products'>
+            Products
+          </a>
+        </li>      </ul>
+    </div>
 
     <div id='results'>
 
@@ -29,8 +42,18 @@
 
         //console.log(companies);
         //console.log(products);
-        render(companies);
+        
+        render(companies)
+        
+        window.addEventListener('hashchange', ev => {
+          const currentPage = window.location.hash;
+          if (currentPage === '#companies') {
+            render(companies);
+          } else if (currentPage === '#products') {
+            render(products);
+          }
 
+        })
       }
 
       const render = (data) => {
